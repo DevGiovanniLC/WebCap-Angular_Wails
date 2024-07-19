@@ -1,0 +1,70 @@
+<form class="main">
+	<div class="second-row">
+		<div class="configure-selector">
+			<label>RESOLUTION</label>
+			<select
+				name="resolution-selector"
+				id="resolution-selector"
+				[(ngModel)]="resolution"
+			>
+				<option selected>1080</option>
+				<option>720</option>
+				<option>480</option>
+				<option>360</option>
+			</select>
+		</div>
+		<div class="configure-selector">
+			<label>FPS</label>
+			<select
+				name="framerate-selector"
+				id="framerate-selector"
+				[(ngModel)]="framerate"
+			>
+				<option selected>60</option>
+				<option>30</option>
+				<option>24</option>
+				<option>15</option>
+			</select>
+		</div>
+
+		<div class="configure-selector">
+			<label>DELAY</label>
+			<input
+			name="delay-input"
+				placeholder="0"
+				type="number"
+				id="delay-input"
+				[(ngModel)]="delay"
+				min="0"
+			/>
+		</div>
+	</div>
+        <div class="first-row">
+            <div class="configure-selector">
+                <label>VIDEO FORMAT</label>
+                <select
+                name="format-video-selector"
+                    id="format-video-selector"
+                    [(ngModel)]="videoformat"
+                >
+                    <option selected>mp4</option>
+                    <option>avi</option>
+                    <option>webm</option>
+                    <option>mov</option>
+                    <option>mkv</option>
+                </select>
+            </div>
+            <div class="configure-selector">
+                <label>IMAGE FORMAT</label>
+                <select
+                    name="format-image-selector"
+                    id="format-image-selector"
+                    [(ngModel)]="imageformat"
+                >
+                    <option selected>png</option>
+                    <option>jpeg</option>
+                    <option>webp</option>
+                </select>
+            </div>
+        </div>
+</form>
