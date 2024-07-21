@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export default class HeaderComponent {
     currentPage: string;
 
-    constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) {
+    constructor(private router: Router, private dialog: MatDialog) {
 
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {

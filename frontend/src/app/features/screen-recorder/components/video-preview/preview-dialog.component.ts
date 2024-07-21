@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogContent } from "@angular/material/dialog";
-import { VIDEO_MANAGER_SERVICE_TOKEN } from "../../../../services/interfaces/video-manager.interface";
-import { VideoManagerGolangService } from "../../../../services/video-manager-golang.service";
+import { VIDEO_MANAGER_SERVICE_TOKEN } from "../../../../services/video-manager/video-manager.interface";
+import { VideoManagerGolangService } from "../../../../services/video-manager/video-manager-golang.service";
 
 
 @Component({
@@ -23,6 +23,6 @@ export class PreviewDialogComponent {
     }
 
     async downloadVideo(): Promise<void> {
-        this.videoManager.sendVideo(this.data.blobData, this.data.format)
+        this.videoManager.proccessVideo(this.data.blobData, this.data.format)
     }
 }

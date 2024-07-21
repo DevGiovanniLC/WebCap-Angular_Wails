@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
 
 @Component({
     selector: 'webcap-frame-uploader',
@@ -14,7 +14,7 @@ export class FrameUploaderComponent {
 
     fileList: FileList
 
-    constructor(private http: HttpClient) {}
+    constructor() {}
 
     onDrop(event: DragEvent) {
         event.preventDefault();
