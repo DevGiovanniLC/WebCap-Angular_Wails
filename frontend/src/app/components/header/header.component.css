@@ -26,11 +26,12 @@ header {
     align-items: center;
 
     ul{
-        margin-left: -2.9em;
+        margin-left: -2.75em;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+        gap: 2em;
     }
 
     li{
