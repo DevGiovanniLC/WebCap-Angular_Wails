@@ -12,7 +12,8 @@ export class VideoManagerGolangService implements IVideoManager {
 
     public async proccessVideo(file: Blob, format: string, func?: Function): Promise<void> {
         const arrayBuffer = await this.blobToArrayBuffer(file);
-        VideoConverter(arrayBuffer, format)
+        const bytes = new Uint8Array(arrayBuffer);
+        VideoConverter(Array.from(bytes), format)
     }
 
     public async downloadVideo(data: Blob): Promise<void> {
@@ -30,6 +31,7 @@ export class VideoManagerGolangService implements IVideoManager {
             };
             reader.onerror = reject;
             reader.readAsArrayBuffer(blob);
+            
         });
     }
 

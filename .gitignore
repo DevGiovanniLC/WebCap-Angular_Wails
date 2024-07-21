@@ -1,5 +1,5 @@
 # Wails bin directory
-build/bin
+*/bin
 
 # IDEs
 .idea

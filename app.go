@@ -3,8 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
+
+	"ScreenCapture/backend/video_funcs"
 	"io/ioutil"
 	"log"
+	"os"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -41,14 +45,27 @@ func (b *App) Greet(name string) string {
 }
 
 func (b *App) VideoConverter(data []byte, format string)  {
-	filePath := "video.webm"
 
-    err := ioutil.WriteFile(filePath, data, 0644)
+	tempDir := "./uploads"
+	if _, err := os.Stat(tempDir); os.IsNotExist(err) {
+		os.Mkdir(tempDir, 0755)
+	}
+
+	tempFilePath := "./uploads/" + time.Now().Format("20060102150405")
+
+    err := ioutil.WriteFile(tempFilePath, data, 0644)
     if err != nil {
         log.Println("Error saving the video:", err)
     }
+	
+	outputPath := tempFilePath + "." + format
 
-    log.Println("Video saved successfully")
+	if err := video_funcs.ConvertVideo(tempFilePath, outputPath); err != nil {
+		fmt.Println("Error converting the video: ", err)
+		return
+	}
+
+	fmt.Println("video converted successfully "+ outputPath)
 
 }
 
