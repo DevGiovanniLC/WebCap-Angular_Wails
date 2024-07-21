@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { HTTPVideoTransfer } from '../../../../services/HTTPVideoTransfer.service';
+import { Component, EventEmitter, Inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { IVideoManager, VIDEO_MANAGER_SERVICE_TOKEN } from '../../../../services/interfaces/video-manager.interface';
+import { VideoManagerGolangService } from '../../../../services/video-manager-golang.service';
 
 @Component({
     selector: 'webcap-file-list',
@@ -9,7 +10,7 @@ import { FormsModule } from '@angular/forms';
     imports: [CommonModule, FormsModule],
     templateUrl: './file-list.component.html',
     styleUrls: ['./file-list.component.css'],
-    providers: [HTTPVideoTransfer]
+    providers: [{ provide: VIDEO_MANAGER_SERVICE_TOKEN, useClass: VideoManagerGolangService }]
 })
 export class FileListComponent implements OnInit {
     @Input() inputFiles: EventEmitter<FileList>
@@ -18,7 +19,7 @@ export class FileListComponent implements OnInit {
     protected format: string;
 
 
-    constructor(private http: HTTPVideoTransfer) { 
+    constructor(@Inject(VIDEO_MANAGER_SERVICE_TOKEN) private videoManager: IVideoManager) {
         this.format = "mp4";
     }
 
@@ -29,8 +30,8 @@ export class FileListComponent implements OnInit {
             if (files == undefined) return;
 
             for (let i = 0; i < files.length; i++) {
-                
-                if (this.isVideoFormat(files[i])){
+
+                if (this.isVideoFormat(files[i])) {
                     this.fileList.push(files[i]);
                 }
 
@@ -44,8 +45,8 @@ export class FileListComponent implements OnInit {
 
     convertFiles() {
         for (let file of this.fileList) {
-            
-            this.http.sendVideo(file, this.format, () => {
+
+            this.videoManager.proccessVideo(file, this.format, () => {
                 this.fileList.splice(this.fileList.indexOf(file), 1);
             })
         }

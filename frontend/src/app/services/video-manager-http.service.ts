@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
+import { IVideoManager } from "./interfaces/video-manager.interface";
 
 @Injectable({
 	providedIn: 'root'
 })
 
-export class HTTPVideoTransfer {
+export class VideoManagerHTTPService implements IVideoManager {
     constructor() { }
 
-    sendVideo(file: Blob, format: string, func?: Function) {
+    proccessVideo(file: Blob, format: string, func?: Function) {
 
         const formData = new FormData();
         formData.append('video', file);
@@ -27,8 +28,7 @@ export class HTTPVideoTransfer {
 
     }
 
-
-    private async downloadVideo(data: Blob): Promise<void> {
+    public async downloadVideo(data: Blob): Promise<void> {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(data);
         link.download = 'video'
