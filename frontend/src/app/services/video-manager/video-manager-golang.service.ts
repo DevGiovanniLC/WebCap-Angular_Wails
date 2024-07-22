@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IVideoManager } from './video-manager.interface';
 import { VideoConverter } from '../../../../wailsjs/go/main/App';
-import { Console } from 'console';
 
 @Injectable({
     providedIn: 'root'
