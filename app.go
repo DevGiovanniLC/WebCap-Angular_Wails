@@ -6,42 +6,62 @@ import (
 	"time"
 
 	"ScreenCapture/backend/video_funcs"
-	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-// App struct
 type App struct {
 	ctx context.Context
 }
 
-// NewApp creates a new App application struct
+func (a *App) startup(ctx context.Context) {
+    a.ctx = ctx
+}
+
 func NewApp() *App {
 	return &App{}
 }
 
-func (b *App) VideoConverter(data []byte, format string)  {
+func (a *App) VideoConverter(data []byte, format string) {
 
 	tempDir := "./uploads"
 	if _, err := os.Stat(tempDir); os.IsNotExist(err) {
 		os.Mkdir(tempDir, 0755)
 	}
 
-	tempFilePath := "./uploads/" + time.Now().Format("20060102150405")
+	inputPath := "./uploads/" + time.Now().Format("20060102150405")
 
-    err := ioutil.WriteFile(tempFilePath, data, 0644)
-    if err != nil {
-        log.Println("Error saving the video:", err)
-    }
-	
-	outputPath := tempFilePath + "." + format
-
-	if err := video_funcs.ConvertVideo(tempFilePath, outputPath); err != nil {
-		fmt.Println("Error converting the video: ", err)
-		return
+	file, err := os.Create(inputPath)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Println("video converted successfully "+ outputPath)
+	file.Write(data)
 
+	outputPath, err := SelectAndSaveFile(a, format)
+
+	video_funcs.ConvertVideo(inputPath, outputPath)
+
+}
+
+
+func SelectAndSaveFile(a *App,format string) (string, error) {
+	saveDialogOptions := runtime.SaveDialogOptions{
+		DefaultDirectory:           "",
+		DefaultFilename:            "video." + format,
+		Title:                      "Save File",
+		Filters:                    []runtime.FileFilter{{DisplayName: "Video Files", Pattern: fmt.Sprintf("*.%s", format)}},
+		ShowHiddenFiles:            false,
+		CanCreateDirectories:       false,
+		TreatPackagesAsDirectories: false,
+	}
+
+	filePath, err := runtime.SaveFileDialog(a.ctx, saveDialogOptions)
+	if err != nil {
+		return "", err
+	}
+
+	return filePath, nil
 }

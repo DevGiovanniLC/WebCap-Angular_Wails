@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { IVideoManager } from './video-manager.interface';
 import { VideoConverter } from '../../../../wailsjs/go/main/App';
-
+import { Console } from 'console';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class VideoManagerGolangService implements IVideoManager {
 
     constructor() { }
 
     public async proccessVideo(file: Blob, format: string, func?: Function): Promise<void> {
         const arrayBuffer = await this.blobToArrayBuffer(file);
-        const bytes = new Uint8Array(arrayBuffer);
-        VideoConverter(Array.from(bytes), format)
+        const numbers = new Uint8Array(arrayBuffer);
+
+        await VideoConverter(Array.from(numbers), format)
+
+        alert('Done!')
+
     }
 
     public async downloadVideo(data: Blob): Promise<void> {
@@ -31,7 +36,6 @@ export class VideoManagerGolangService implements IVideoManager {
             };
             reader.onerror = reject;
             reader.readAsArrayBuffer(blob);
-            
         });
     }
 

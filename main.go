@@ -23,6 +23,7 @@ func main() {
 		MinHeight:         800,
 		BackgroundColour: &options.RGBA{R: 213, G: 213, B: 213, A: 1},
 		Assets:            assets,
+		OnStartup: app.startup,
 		Bind: []interface{}{
 			app,
 		},

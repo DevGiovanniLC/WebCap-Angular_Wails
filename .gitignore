@@ -1,6 +1,7 @@
-# Wails bin directory
+
 */bin
 bin
+uploads
 
 # IDEs
 .idea
