@@ -6,7 +6,8 @@ export const VIDEO_MANAGER_SERVICE_TOKEN = new InjectionToken<IVideoManager>('Vi
 
 
 export interface IVideoManager {
-    proccessVideo(file: Blob, format: string, func?: Function): void
+    proccessVideo(file: Blob, format: string): void
+    convertVideoBufferFormat(name: string, file: Blob, format: string, func?: Function): void
 
     downloadVideo(data: Blob): Promise<void>
 }

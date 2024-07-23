@@ -15,7 +15,7 @@ import { VideoManagerGolangService } from '../../../../services/video-manager/vi
 export class FileListComponent implements OnInit {
     @Input() inputFiles: EventEmitter<FileList>
 
-    protected fileList = []
+    protected fileList = new Array<File>();
     protected format: string;
 
 
@@ -24,7 +24,6 @@ export class FileListComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.inputFiles.subscribe(files => {
 
             if (files == undefined) return;
@@ -43,17 +42,20 @@ export class FileListComponent implements OnInit {
         this.fileList.splice(this.fileList.indexOf(file), 1);
     }
 
-    convertFiles() {
+    async convertFiles() {
         for (let file of this.fileList) {
-
-            this.videoManager.proccessVideo(file, this.format, () => {
-                this.fileList.splice(this.fileList.indexOf(file), 1);
+            this.videoManager.convertVideoBufferFormat(file.name,this.getBlobFromFile(file), this.format,  () => {
+                this.deleteFile(file);
             })
         }
     }
 
     private isVideoFormat(file: File) {
         return /^video\//.test(file.type);
+    }
+
+    private getBlobFromFile(file: File): Blob {
+        return new Blob([file]);
     }
 
 }

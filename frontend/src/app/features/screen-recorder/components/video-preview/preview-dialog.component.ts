@@ -23,6 +23,6 @@ export class PreviewDialogComponent {
     }
 
     async downloadVideo(): Promise<void> {
-        this.videoManager.proccessVideo(this.data.blobData, this.data.format)
+        this.videoManager.proccessVideo(this.data.blobData, this.data.format, false)
     }
 }
