@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IVideoManager } from './video-manager.interface';
-import { ProcessVideo, VideoBufferConverter } from '../../../../wailsjs/go/main/App';
+import { ProcessVideo, VideoBufferConverter } from '../../../../../wailsjs/go/main/App';
 
 @Injectable({
     providedIn: 'root'

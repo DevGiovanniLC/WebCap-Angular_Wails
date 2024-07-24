@@ -1,7 +1,7 @@
 import {  Component } from "@angular/core";
 import { FormsModule } from '@angular/forms';
 import { ScreenshotTaker } from '../../services/screenshot-taker.service';
-import { CaptureSettingsService } from "../../../options/services/capture-settings.service";
+import { CaptureSettingsService } from "../../../capture-settings/services/capture-settings.service";
 
 @Component({
     selector: 'webcap-screenshot-button',

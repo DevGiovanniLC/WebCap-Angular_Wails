@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { RecordButtonComponent } from '../../features/screen-recorder/components/record-button/record-button.component';
 import HeaderComponent from '../../components/header/header.component';
-import { OptionsMenuComponent } from '../../features/options/components/options-menu/menu-options.component';
-import { ScreenshotButtonComponent } from '../../features/screen-capture/components/screenshot-button/screenshot-button.component';
+import { OptionsMenuComponent } from '../../features/capture-settings/components/options-menu/menu-options.component';
+import { ScreenshotButtonComponent } from '../../features/screenshot-capturer/components/screenshot-button/screenshot-button.component';
 
 @Component({
     selector: 'app-home-page',

@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { MediaCombiner } from '../../../services/media-combiner.service';
+import { MediaCombiner } from './media-combiner.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({

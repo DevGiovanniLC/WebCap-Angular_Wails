@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, input, OnInit, OutputEmitterRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IVideoManager, VIDEO_MANAGER_SERVICE_TOKEN } from '../../../../services/video-manager/video-manager.interface';
-import { VideoManagerGolangService } from '../../../../services/video-manager/video-manager-golang.service';
+import { IVideoManager, VIDEO_MANAGER_SERVICE_TOKEN } from '../../services/video-manager.interface';
+import { VideoManagerGolangService } from '../../services/video-manager-golang.service';
 
 @Component({
     selector: 'webcap-file-list',

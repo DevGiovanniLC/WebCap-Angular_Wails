@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import HeaderComponent from '../../components/header/header.component';
-import { FrameUploaderComponent } from './components/frame-uploader/frame-uploader.component';
-import { FileListComponent } from './components/file-list/file-list.component';
+import { FrameUploaderComponent } from '../../features/video-converter/components/frame-uploader/frame-uploader.component';
+import { FileListComponent } from '../../features/video-converter/components/file-list/file-list.component';
 
 @Component({
     selector: 'app-formatconverter-page',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
 import { MatDialog } from "@angular/material/dialog";
-import { WarningMobileDialogComponent } from "./components/dialogs/warning-mobile-dialog/warning-mobile-dialog.component";
-import { NavigatorInfoService } from "./services/navigator-info.service";
+import { WarningMobileDialogComponent } from "./features/info-dialogs/components/warning-mobile-dialog/warning-mobile-dialog.component";
+import { NavigatorInfoService } from "./features/info-dialogs/services/navigator-info.service";
 
 @Component({
     selector: 'app-root',
@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
 
         if (this.navigatorInfoService.DetectUserTypeDevice()) {
-            console.log(this.navigatorInfoService.DetectUserTypeDevice())
             this.openModal()
         }
     }

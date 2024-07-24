@@ -1,11 +1,11 @@
 import { Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { OptionsMenuComponent } from '../../../options/components/options-menu/menu-options.component';
+import { OptionsMenuComponent } from '../../../capture-settings/components/options-menu/menu-options.component';
 import { PreviewDialogComponent } from '../video-preview/preview-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ScreenRecorder } from '../../services/screen-recorder.service';
-import { OptionDialogComponent } from '../../../options/components/options-dialog/dialog-options.component';
-import { CaptureSettingsService } from '../../../options/services/capture-settings.service';
+import { OptionDialogComponent } from '../../../capture-settings/components/options-dialog/dialog-options.component';
+import { CaptureSettingsService } from '../../../capture-settings/services/capture-settings.service';
 
 @Component({
     selector: 'webcap-record-button',
