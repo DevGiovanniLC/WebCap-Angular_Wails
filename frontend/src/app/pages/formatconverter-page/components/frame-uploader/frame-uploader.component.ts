@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 export class FrameUploaderComponent {
 
-    @Output() fileList_event: EventEmitter<FileList> = new EventEmitter<FileList>();
+    fileList_event = output<FileList>();
 
     fileList: FileList
 

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, viewChild} from "@angular/core";
 import { OptionsMenuComponent } from "../options-menu/menu-options.component";
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -13,9 +13,9 @@ import { MatDialogRef } from "@angular/material/dialog";
 })
 
 export class OptionDialogComponent {
-    @ViewChild('options') optionsMenuComponent: OptionsMenuComponent;
+    optionsMenuComponent = viewChild<OptionsMenuComponent | undefined>('options');
 
-    constructor(public dialogRef: MatDialogRef<OptionDialogComponent>) { }
+    constructor(public dialogRef: MatDialogRef<OptionDialogComponent>) {}
 
 
     closeModal() {
@@ -23,7 +23,7 @@ export class OptionDialogComponent {
     }
 
     saveSettings(): void {
-        const selectedOptions = this.optionsMenuComponent.saveOptions();
+        const selectedOptions = this.optionsMenuComponent().saveOptions();
         this.dialogRef.close(selectedOptions);
     }
 }

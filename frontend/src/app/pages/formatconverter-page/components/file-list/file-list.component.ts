@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, input, OnInit, OutputEmitterRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IVideoManager, VIDEO_MANAGER_SERVICE_TOKEN } from '../../../../services/video-manager/video-manager.interface';
 import { VideoManagerGolangService } from '../../../../services/video-manager/video-manager-golang.service';
@@ -13,7 +13,7 @@ import { VideoManagerGolangService } from '../../../../services/video-manager/vi
     providers: [{ provide: VIDEO_MANAGER_SERVICE_TOKEN, useClass: VideoManagerGolangService }]
 })
 export class FileListComponent implements OnInit {
-    @Input() inputFiles: EventEmitter<FileList>
+    inputFiles = input.required<OutputEmitterRef<FileList>>()
 
     protected fileList = new Array<File>();
     protected format: string;
@@ -24,18 +24,16 @@ export class FileListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.inputFiles.subscribe(files => {
-
+        this.inputFiles().subscribe((files) => {
             if (files == undefined) return;
 
             for (let i = 0; i < files.length; i++) {
-
                 if (this.isVideoFormat(files[i])) {
                     this.fileList.push(files[i]);
                 }
-
             }
         })
+
     }
 
     deleteFile(file: File) {
@@ -44,7 +42,7 @@ export class FileListComponent implements OnInit {
 
     async convertFiles() {
         for (let file of this.fileList) {
-            this.videoManager.convertVideoBufferFormat(file.name,this.getBlobFromFile(file), this.format,  () => {
+            this.videoManager.convertVideoBufferFormat(file.name, this.getBlobFromFile(file), this.format, () => {
                 this.deleteFile(file);
             })
         }
