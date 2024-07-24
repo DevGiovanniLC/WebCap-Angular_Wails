@@ -30,14 +30,8 @@ func NewApp() *App {
 
 func (a *App) ProcessVideo(data []byte, format string) {
 
-	inputPath := GetTempPath()
-
-	file, err := os.Create(inputPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	file.Write(data)
+	inputPath := CreateTemporalFile(data)
+	defer os.RemoveAll(inputPath)
 
 	outputPath := SelectAndSaveFile(a, format)
 
@@ -47,15 +41,9 @@ func (a *App) ProcessVideo(data []byte, format string) {
 }
 
 func (a *App) VideoBufferConverter(fileName string, data []byte, format string) {
-
-	inputPath := GetTempPath()
-
-	file, err := os.Create(inputPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	file.Write(data)
+	
+	inputPath := CreateTemporalFile(data)
+	defer os.Remove(inputPath)
 
 	userFolder := filepath.Join(GetVideoUserPath(), folderName)
 	CreateFolder(userFolder)
@@ -66,8 +54,23 @@ func (a *App) VideoBufferConverter(fileName string, data []byte, format string) 
 	fmt.Println("Video saved: ", outputPath)
 }
 
-func GetTempPath() string {
+func CreateTemporalFile(data []byte) string {
 	tempDir := "./" + folderName
+
+	inputPath := GetTempPath(tempDir)
+
+	file, err := os.Create(inputPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	file.Write(data)
+	file.Close()
+
+	return inputPath
+}
+
+func GetTempPath(tempDir string) (string) {
 	CreateFolder(tempDir)
 	fileName := "video" + time.Now().Format("20060102150405")
 	filePath := filepath.Join(tempDir, fileName)
@@ -81,7 +84,7 @@ func SelectAndSaveFile(a *App, format string) string {
 		Title:                      "Save File",
 		Filters:                    []runtime.FileFilter{{DisplayName: "Video Files", Pattern: fmt.Sprintf("*.%s", format)}},
 		ShowHiddenFiles:            false,
-		CanCreateDirectories:       false,
+		CanCreateDirectories:       true,
 		TreatPackagesAsDirectories: false,
 	}
 
