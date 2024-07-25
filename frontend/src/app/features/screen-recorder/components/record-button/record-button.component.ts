@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OptionsMenuComponent } from '../../../capture-settings/components/options-menu/menu-options.component';
-import { PreviewDialogComponent } from '../video-preview/preview-dialog.component';
+import { PreviewDialogComponent } from '../video-preview-dialog/preview-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ScreenRecorder } from '../../services/screen-recorder.service';
 import { OptionDialogComponent } from '../../../capture-settings/components/options-dialog/dialog-options.component';
