@@ -17,9 +17,11 @@ import { VideoManagerGolangService } from "../../../video-converter/services/vid
 })
 export class PreviewDialogComponent {
     VideoUrl: string
+    isProcessing: boolean;
 
     constructor(@Inject(VIDEO_MANAGER_SERVICE_TOKEN) private videoManager, @Inject(MAT_DIALOG_DATA) public data, public dialogRef: MatDialogRef<PreviewDialogComponent>) {
         this.VideoUrl = URL.createObjectURL(this.data.blobData)
+        this.isProcessing = false
     }
 
     closeModal() {
@@ -27,6 +29,8 @@ export class PreviewDialogComponent {
     }
 
     async downloadVideo(): Promise<void> {
-        this.videoManager.proccessVideo(this.data.blobData, this.data.format, false)
+        this.isProcessing = true
+        await this.videoManager.proccessVideo(this.data.blobData, this.data.format, false)
+        this.isProcessing = false
     }
 }

@@ -5,7 +5,7 @@
 <video  src="{{ this.VideoUrl }}" controls></video>
 
 <div class="options">
-	<button class="download-button" (click)="this.downloadVideo()">
-		Save Video
+	<button class="download-button" (click)="this.downloadVideo()" [disabled]="isProcessing">
+		{{ (isProcessing)? 'SAVING...' : 'SAVE VIDEO' }}
 	</button>
 </div>

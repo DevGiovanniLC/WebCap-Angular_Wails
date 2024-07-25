@@ -31,9 +31,12 @@ func NewApp() *App {
 func (a *App) ProcessVideo(data []byte, format string) {
 
 	inputPath := CreateTemporalFile(data)
+	if (inputPath == "") {return}
+
 	defer os.RemoveAll(inputPath)
 
 	outputPath := SelectAndSaveFile(a, format)
+	if (outputPath == "") {return}
 
 	video_funcs.ConvertVideo(inputPath, outputPath)
 
@@ -41,13 +44,16 @@ func (a *App) ProcessVideo(data []byte, format string) {
 }
 
 func (a *App) VideoBufferConverter(fileName string, data []byte, format string) {
-	
+
 	inputPath := CreateTemporalFile(data)
 	defer os.Remove(inputPath)
 
 	userFolder := filepath.Join(GetVideoUserPath(), folderName)
 	CreateFolder(userFolder)
-	outputPath := filepath.Join(userFolder, fileName+"."+format)
+
+	outputPath := filepath.Join(userFolder, GetNameWithOutExtension(fileName)+"."+format)
+	
+	outputPath = GetUniqueFileName(outputPath, format, 0)
 
 	video_funcs.ConvertVideo(inputPath, outputPath)
 
@@ -62,6 +68,7 @@ func CreateTemporalFile(data []byte) string {
 	file, err := os.Create(inputPath)
 	if err != nil {
 		log.Fatal(err)
+		return ""
 	}
 
 	file.Write(data)
@@ -70,7 +77,7 @@ func CreateTemporalFile(data []byte) string {
 	return inputPath
 }
 
-func GetTempPath(tempDir string) (string) {
+func GetTempPath(tempDir string) string {
 	CreateFolder(tempDir)
 	fileName := "video" + time.Now().Format("20060102150405")
 	filePath := filepath.Join(tempDir, fileName)
@@ -93,8 +100,39 @@ func SelectAndSaveFile(a *App, format string) string {
 		return ""
 	}
 
+	filePath = CheckOverWriteFile(filePath)
+
 	fmt.Println("Path Selected ", filePath)
 	return filePath
+}
+
+func CheckOverWriteFile(filePath string) string {
+	if _, err := os.Stat(filePath); err == nil {
+		os.Remove(filePath)
+		return filePath
+	} else if os.IsNotExist(err) {
+		return filePath
+	}
+
+	return filePath
+}
+
+func GetUniqueFileName(filePath string, format string, count int) string {
+	if _, err := os.Stat(filePath); err == nil {
+		counter := fmt.Sprintf("(%d)", count+1)
+		filePath = GetNameWithOutExtension(filePath)+ counter + "." + format
+		return GetUniqueFileName(filePath, format, count+1)
+	} else if os.IsNotExist(err) {
+		return filePath
+	}
+
+	return filePath
+}
+
+func GetNameWithOutExtension(path string) string {
+	extension := filepath.Ext(path)
+
+	return path[:len(path)-len(extension)]
 }
 
 func CreateFolder(path string) {
