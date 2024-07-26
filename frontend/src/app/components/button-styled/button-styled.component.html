@@ -1,0 +1,9 @@
+@if (this.href()) {
+    <a [class]="this.buttonClass()" [routerLink]="this.href()" draggable="false">
+        <ng-content select="[text]"></ng-content>
+    </a>
+}@else{
+    <button [class]="this.buttonClass()"  draggable="false" [disabled]="this.buttonDisabled()">
+        <ng-content></ng-content>
+    </button>
+}

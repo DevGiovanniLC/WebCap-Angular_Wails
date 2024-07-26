@@ -1,13 +1,15 @@
 import { Component, viewChild} from "@angular/core";
 import { OptionsMenuComponent } from "../options-menu/menu-options.component";
 import { MatDialogRef } from "@angular/material/dialog";
+import { ButtonStyledComponent } from "../../../../components/button-styled/button-styled.component";
 
 @Component({
     selector: 'app-option-dialog',
     standalone: true,
     imports: [
-        OptionsMenuComponent
-    ],
+    OptionsMenuComponent,
+    ButtonStyledComponent
+],
     templateUrl: './dialog-options.component.html',
     styleUrl: './dialog-options.component.css'
 })

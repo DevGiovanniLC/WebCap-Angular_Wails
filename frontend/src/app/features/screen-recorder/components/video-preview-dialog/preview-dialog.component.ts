@@ -2,6 +2,7 @@ import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
 import { VIDEO_MANAGER_SERVICE_TOKEN } from "../../../video-converter/services/video-manager.interface";
 import { VideoManagerGolangService } from "../../../video-converter/services/video-manager-golang.service";
+import { ButtonStyledComponent } from "../../../../components/button-styled/button-styled.component";
 
 
 @Component({
@@ -10,7 +11,8 @@ import { VideoManagerGolangService } from "../../../video-converter/services/vid
     providers: [{provide:VIDEO_MANAGER_SERVICE_TOKEN, useClass: VideoManagerGolangService}],
     imports: [
         MatDialogContent,
-        MatDialogClose
+        MatDialogClose,
+        ButtonStyledComponent
     ],
     templateUrl: './preview-dialog.component.html',
     styleUrl: './preview-dialog.component.css'

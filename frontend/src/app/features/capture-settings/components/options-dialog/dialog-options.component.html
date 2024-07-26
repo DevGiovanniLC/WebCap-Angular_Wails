@@ -1,14 +1,14 @@
 <div class="modal-background">
     <div class="modal-content">
-        <div class="modal-header">
-            <h2>SETTINGS</h2>
-            <button class="close-button" (click)="closeModal()">&times;</button>
-		</div>
-		<div class="modal-body">
+        <header >
+            <h1>SETTINGS</h1>
+            <webcap-button-styled id="closeButton" buttonClass="principal header" (click)="closeModal()">&times;</webcap-button-styled>
+		</header>
+		<main class="modal-body">
 			<webcap-option-menu #options />
-		</div>
-		<div class="modal-footer">
-			<button (click)="saveSettings()" class="save-button">SAVE</button>
-		</div>
+        </main>
+		<footer class="modal-footer">
+			<webcap-button-styled (click)="saveSettings()">SAVE</webcap-button-styled>
+        </footer>
 	</div>
 </div>

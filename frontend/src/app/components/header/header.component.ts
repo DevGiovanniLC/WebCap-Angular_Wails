@@ -1,13 +1,12 @@
 import { Component } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { ButtonStyledComponent } from "../button-styled/button-styled.component";
 
 
 @Component({
     selector: 'webcap-header',
     standalone: true,
-    imports: [RouterLink, FormsModule, CommonModule],
+    imports: [RouterLink, ButtonStyledComponent],
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
 })

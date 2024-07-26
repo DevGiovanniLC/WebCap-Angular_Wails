@@ -1,11 +1,16 @@
-<div class="header">
-	<button class="close-button" (click)="closeModal()">&times;</button>
+<div class="modal-background">
+    <div class="modal-content">
+        <header>
+            <webcap-button-styled id="closeButton" buttonClass="principal header" (click)="closeModal()">&times;</webcap-button-styled>
+        </header>
+        <main>
+            <video  src="{{ this.VideoUrl }}" [controlsList]="'nodownload'" controls></video>
+        </main>
+        <footer class="options">
+            <webcap-button-styled  (click)="this.downloadVideo()" [buttonDisabled]="isProcessing">
+                {{ (isProcessing)? 'SAVING...' : 'SAVE VIDEO' }}
+            </webcap-button-styled>
+        </footer>
+    </div>
 </div>
 
-<video  src="{{ this.VideoUrl }}" controls></video>
-
-<div class="options">
-	<button class="download-button" (click)="this.downloadVideo()" [disabled]="isProcessing">
-		{{ (isProcessing)? 'SAVING...' : 'SAVE VIDEO' }}
-	</button>
-</div>

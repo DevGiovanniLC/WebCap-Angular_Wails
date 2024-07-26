@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.principal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0.8em 1em;
+    border-radius: 0.2em;
+    color: white;
+    background-color: black;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgb(0, 0, 0, 0);
+        color: #000;
+        border: none;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+button.principal.header{
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    padding: 0.8em 0.8em;
+    font-size: 1.5em;
+}
+
