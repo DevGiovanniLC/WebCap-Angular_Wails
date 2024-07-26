@@ -44,7 +44,7 @@ export class RecordButtonComponent {
         })
     }
 
-    private openModal(data: Blob, format: string) {
+    private openPreviewModal(data: Blob, format: string) {
         this._matDialog.open(PreviewDialogComponent, {
             width: '65%',
             data: {
@@ -77,7 +77,7 @@ export class RecordButtonComponent {
             this.isRecording = false
             this.updateButtonStyle()
             const { videoformat} = this._captureSettingsService.getSettings();
-            this.openModal(event.data, videoformat);
+            this.openPreviewModal(event.data, videoformat);
         });
     }
 
@@ -98,8 +98,8 @@ export class RecordButtonComponent {
     }
 
 
-    openOptions(): void {
-        const dialogRef = this._matDialog.open(OptionDialogComponent, {
+    openOptionsModal(): void {
+        this._matDialog.open(OptionDialogComponent, {
             width: '65%',
         });
     }

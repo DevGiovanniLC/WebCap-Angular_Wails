@@ -38,7 +38,7 @@ export class ScreenshotTaker {
 				stream.getTracks().forEach((track) => track.stop());
 			}, delay);
 		} catch (error) {
-			console.error('Error al tomar la captura de pantalla:', error);
+			console.error('ScreenShotTaker error: ', error);
 		}
 	}
 }
