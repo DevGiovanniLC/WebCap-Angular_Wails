@@ -51,6 +51,10 @@ export class FileListComponent {
         return RegExp(`^${type}/`).test(file.type)
     }
 
+    protected emptyList() {
+        this.fileList = [];
+        this.fileListLength.next(this.fileList.length);
+    }
 
 
 

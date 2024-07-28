@@ -6,16 +6,22 @@
 		</div>
 	</section>
 	<section class="configure-selector">
-        <input type="file"  accept="video/*" (change)="onFileSelected($event)" multiple />
-		<button>Convert</button>
 
-		<label>Video formats</label>
+        <button class="menuButtonBin" (click)="emptyList()">🗑</button>
+
+        <label class = "menuButton" for="files"><span style="color: green;">+</span> ADD FILES</label>
+        <input style="display: none;" id="files" type="file"  [accept]="fileType()+'/*'" (change)="onFileSelected($event)" multiple>
+
+
+		<button class="menuButton">CONVERT</button>
+
+		<label>FILE FORMATS</label>
 		<select
 			name="format-video-selector"
 			id="format-video-selector"
 			[(ngModel)]="format"
 		>
-			<option selected>mp4</option>
+			<option>mp4</option>
 			<option>avi</option>
 			<option>webm</option>
 			<option>mov</option>
