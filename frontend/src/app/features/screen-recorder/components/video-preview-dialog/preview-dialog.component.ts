@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
-import { VIDEO_MANAGER_SERVICE_TOKEN } from "../../../video-converter/services/video-manager.interface";
-import { VideoManagerGolangService } from "../../../video-converter/services/video-manager-golang.service";
+import { VIDEO_MANAGER_SERVICE_TOKEN } from "../../../file-converter/services/video-manager.interface";
+import { VideoManagerGolangService } from "../../../file-converter/services/video-manager-golang.service";
 import { ButtonStyledComponent } from "../../../../components/button-styled/button-styled.component";
 
 

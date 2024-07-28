@@ -6,15 +6,5 @@
 	margin: auto;
 }
 
-webcap-frame-uploader {
-    display: flex;
-	justify-content: center;
-    align-items: center;
-}
 
-webcap-file-list{
-    display: flex;
-	justify-content: center;
-    align-items: center;
-}
 

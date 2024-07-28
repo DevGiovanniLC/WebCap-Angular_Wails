@@ -1,4 +1,4 @@
-<div class="container" *ngIf="fileList.length > 0">
+<div class="container">
 	<section class="fileList">
 		<div *ngFor="let file of fileList" class="file">
 			<em>{{ file.name }}</em>
@@ -6,7 +6,8 @@
 		</div>
 	</section>
 	<section class="configure-selector">
-		<button (click)="convertFiles()">Convert</button>
+        <input type="file"  accept="video/*" (change)="onFileSelected($event)" multiple />
+		<button>Convert</button>
 
 		<label>Video formats</label>
 		<select

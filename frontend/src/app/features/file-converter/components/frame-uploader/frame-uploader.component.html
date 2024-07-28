@@ -1,0 +1,6 @@
+<div class="dropzone" (drop)="onDrop($event)" draggable="false">
+    <img src="/assets/fileplaceholder.webp" draggable="false" />
+    <em draggable="false" style="user-select: none">Drag file or click</em>
+    <em draggable="false" style="user-select: none">to select multiple files</em>
+    <input type="file" (change)="onFileSelected($event)" multiple />
+</div>

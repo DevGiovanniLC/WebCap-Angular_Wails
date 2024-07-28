@@ -1,0 +1,4 @@
+<div class="container">
+    <webcap-frame-uploader [style.display]="isFileListEmpty$() ? 'flex' : 'none'" #dropzone />
+    <webcap-file-list [fileType]="fileType$" [style.display]="(isFileListEmpty$() ? 'none' : 'flex')" #fileList />
+</div>
