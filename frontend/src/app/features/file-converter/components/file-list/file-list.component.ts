@@ -1,5 +1,6 @@
 import { Component, input} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { IFileFormatConverter } from '../../services/file-format-converter.interface';
 
 @Component({
     selector: 'webcap-file-list',
@@ -13,8 +14,8 @@ export class FileListComponent {
     protected fileList: File[]
     protected format: string
 
-    
-    fileType = input<string>("video")
+    fileConverter = input<IFileFormatConverter>(undefined)
+    fileType = input.required<string>()
 
     constructor() {
         this.format = "mp4";
@@ -54,6 +55,10 @@ export class FileListComponent {
     protected emptyList() {
         this.fileList = [];
         this.fileListLength.next(this.fileList.length);
+    }
+
+    protected convertFiles() {
+        this.fileConverter().convertFileListFormat(this.fileList, this.format, this.deleteFile)
     }
 
 

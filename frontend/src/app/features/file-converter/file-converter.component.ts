@@ -1,6 +1,7 @@
-import { Component, OnInit, signal, viewChild, } from '@angular/core';
+import { Component, input, OnInit, signal, viewChild, } from '@angular/core';
 import { FileListComponent } from './components/file-list/file-list.component';
 import { FrameUploaderComponent } from './components/frame-uploader/frame-uploader.component';
+import { IFileFormatConverter } from './services/file-format-converter.interface';
 
 @Component({
     selector: 'webcap-file-converter',
@@ -8,23 +9,21 @@ import { FrameUploaderComponent } from './components/frame-uploader/frame-upload
     styleUrls: ['./file-converter.component.css']
 })
 export class FileConverterComponent implements OnInit {
-    fileType$: string;
-    isFileListEmpty$ = signal<boolean>(true);
-
+    fileType = input.required<string>();
+    fileConverter = input.required<IFileFormatConverter>();
+    $isFileListEmpty = signal<boolean>(true);
     fileListComponent = viewChild<FileListComponent>('fileList');
     dropZoneComponent = viewChild<FrameUploaderComponent>('dropzone');
 
 
-    constructor() {
-        this.fileType$ = "video"
-    }
+    constructor() {}
 
     ngOnInit(): void {
 
         if (this.fileListComponent == undefined || this.dropZoneComponent == undefined) return
 
         this.fileListComponent().getActualFileList().subscribe((fileListLength) => {
-            (fileListLength == 0) ? this.isFileListEmpty$.set(true) : this.isFileListEmpty$.set(false)
+            (fileListLength == 0) ? this.$isFileListEmpty.set(true) : this.$isFileListEmpty.set(false)
         })
 
         this.dropZoneComponent().getUploadedFiles().subscribe((uploudedFileList) => {

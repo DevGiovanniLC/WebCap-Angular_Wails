@@ -1,6 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
-import { VIDEO_MANAGER_SERVICE_TOKEN } from "../../../file-converter/services/video-manager.interface";
+import { FILE_MANAGER_SERVICE_TOKEN } from "../../../file-converter/services/file-format-converter.interface";
 import { VideoManagerGolangService } from "../../../file-converter/services/video-manager-golang.service";
 import { ButtonStyledComponent } from "../../../../components/button-styled/button-styled.component";
 
@@ -8,7 +8,7 @@ import { ButtonStyledComponent } from "../../../../components/button-styled/butt
 @Component({
     selector: 'webcap-preview-dialog',
     standalone: true,
-    providers: [{provide:VIDEO_MANAGER_SERVICE_TOKEN, useClass: VideoManagerGolangService}],
+    providers: [{provide:FILE_MANAGER_SERVICE_TOKEN, useClass: VideoManagerGolangService}],
     imports: [
         MatDialogContent,
         MatDialogClose,
@@ -21,7 +21,7 @@ export class PreviewDialogComponent {
     VideoUrl: string
     isProcessing: boolean;
 
-    constructor(@Inject(VIDEO_MANAGER_SERVICE_TOKEN) private videoManager, @Inject(MAT_DIALOG_DATA) public data, public dialogRef: MatDialogRef<PreviewDialogComponent>) {
+    constructor(@Inject(FILE_MANAGER_SERVICE_TOKEN) private videoManager, @Inject(MAT_DIALOG_DATA) public data, public dialogRef: MatDialogRef<PreviewDialogComponent>) {
         this.VideoUrl = URL.createObjectURL(this.data.blobData)
         this.isProcessing = false
     }

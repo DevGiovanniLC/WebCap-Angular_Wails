@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
-import { IVideoManager } from './video-manager.interface';
+import { IFileFormatConverter } from './file-format-converter.interface';
 import { ProcessVideo, VideoBufferConverter } from '../../../../../wailsjs/go/main/App';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class VideoManagerGolangService implements IVideoManager {
+export class VideoManagerGolangService implements IFileFormatConverter {
 
     constructor() { }
     
-    public async proccessVideo(file: Blob, format: string): Promise<void> {
+    public async converteFileFormat(file: Blob, format: string): Promise<void> {
         const arrayBuffer = await this.blobToArrayBuffer(file);
         const numbers = new Uint8Array(arrayBuffer);
 
         await ProcessVideo(Array.from(numbers), format)
     }
 
-    public async convertVideoBufferFormat(name: string, file: Blob, format: string, func?: Function): Promise<void> {
-        const arrayBuffer = await this.blobToArrayBuffer(file);
-        const numbers = new Uint8Array(arrayBuffer);
-
-        VideoBufferConverter(name, Array.from(numbers), format);
-
-        if (func) func();
+    public async convertFileListFormat(fileList: File[] , format: string, func?: Function): Promise<void> {
+        for (let file of fileList) {
+            const arrayBuffer = await this.blobToArrayBuffer(file);
+            const numbers = new Uint8Array(arrayBuffer);
+    
+            VideoBufferConverter(file.name, Array.from(numbers), format);
+    
+            if (func) func(file);
+        }
     }
 
 
