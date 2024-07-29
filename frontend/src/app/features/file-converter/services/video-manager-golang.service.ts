@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IFileFormatConverter } from './file-format-converter.interface';
-import { ConvertFileFormat, ConvertFileBufferFormat} from '../../../../../wailsjs/go/main/App';
+import { ConvertFileFormat, ConvertFileBufferFormat } from '../../../../../wailsjs/go/main/App';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +9,7 @@ import { ConvertFileFormat, ConvertFileBufferFormat} from '../../../../../wailsj
 export class VideoManagerGolangService implements IFileFormatConverter {
 
     constructor() { }
-    
+
     public async converteFileFormat(file: Blob, format: string): Promise<void> {
         const arrayBuffer = await file.arrayBuffer()
         const numbers = new Uint8Array(arrayBuffer);
@@ -17,10 +17,12 @@ export class VideoManagerGolangService implements IFileFormatConverter {
         await ConvertFileFormat(Array.from(numbers), format)
     }
 
-    public async convertFileListFormat(fileList: File[] , format: string, func?: Function): Promise<void> {
-        for (let i = 0; i < fileList.length; i++) {
-            let data = new Uint8Array( await fileList[i].arrayBuffer());
-            await ConvertFileBufferFormat(fileList[i].name, Array.from(data), format);
+    public async convertFileListFormat(fileList: File[], format: string, func?: Function): Promise<void> {
+        const fileListCopied = [].concat(fileList);
+        for (let file of fileListCopied) {
+            let data = new Uint8Array(await file.arrayBuffer());
+            await ConvertFileBufferFormat(file.name, Array.from(data), format);
+            if (func) func(fileList, file);
         }
     }
 }

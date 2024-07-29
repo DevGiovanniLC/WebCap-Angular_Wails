@@ -61,10 +61,9 @@ export class FileListComponent {
         this.fileListLength.next(this.fileList.length);
     }
 
-    protected convertFiles() {
-        this.fileConverter.convertFileListFormat(this.fileList, this.format, this.deleteFile)
+    protected async convertFiles() {
+        await this.fileConverter.convertFileListFormat(this.fileList, this.format, this.deleteFile)
         this.fileListLength.next(this.fileList.length);
-        this.emptyList()
     }
 
 
