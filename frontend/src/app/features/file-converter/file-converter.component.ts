@@ -1,7 +1,7 @@
 import { Component, input, OnInit, signal, viewChild, } from '@angular/core';
 import { FileListComponent } from './components/file-list/file-list.component';
 import { FrameUploaderComponent } from './components/frame-uploader/frame-uploader.component';
-import { IFileFormatConverter } from './services/file-format-converter.interface';
+
 
 @Component({
     selector: 'webcap-file-converter',
@@ -10,7 +10,6 @@ import { IFileFormatConverter } from './services/file-format-converter.interface
 })
 export class FileConverterComponent implements OnInit {
     fileType = input.required<string>();
-    fileConverter = input.required<IFileFormatConverter>();
     $isFileListEmpty = signal<boolean>(true);
     fileListComponent = viewChild<FileListComponent>('fileList');
     dropZoneComponent = viewChild<FrameUploaderComponent>('dropzone');
@@ -34,7 +33,7 @@ export class FileConverterComponent implements OnInit {
 
             for (let i = 0; i < uploudedFileList.length; i++) {
 
-                console.log(this.fileListComponent().addFile(uploudedFileList[i]))
+                this.fileListComponent().addFile(uploudedFileList[i])
 
             }
         })

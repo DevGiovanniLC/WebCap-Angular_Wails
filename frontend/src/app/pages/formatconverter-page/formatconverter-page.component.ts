@@ -18,11 +18,6 @@ import { VideoManagerGolangService } from '../../features/file-converter/service
 
 export class FormatconverterPageComponent {
 
-    constructor(@Inject(FILE_MANAGER_SERVICE_TOKEN) protected  videoManager: IFileFormatConverter){
-
-    }   
-
-    
-
+    constructor(){}   
 
 }

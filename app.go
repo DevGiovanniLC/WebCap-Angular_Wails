@@ -28,7 +28,7 @@ func NewApp() *App {
 	return &App{}
 }
 
-func (a *App) ProcessVideo(data []byte, format string) {
+func (a *App) ConvertFileFormat(data []byte, format string) {
 
 	inputPath := CreateTemporalFile(data)
 	if (inputPath == "") {return}
@@ -43,7 +43,7 @@ func (a *App) ProcessVideo(data []byte, format string) {
 	fmt.Println("Video saved: ", outputPath)
 }
 
-func (a *App) VideoBufferConverter(fileName string, data []byte, format string) {
+func (a *App) ConvertFileBufferFormat(fileName string, data []byte, format string) {
 
 	inputPath := CreateTemporalFile(data)
 	defer os.Remove(inputPath)

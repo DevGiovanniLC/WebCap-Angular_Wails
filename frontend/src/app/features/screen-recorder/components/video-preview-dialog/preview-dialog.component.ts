@@ -1,6 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
-import { FILE_MANAGER_SERVICE_TOKEN } from "../../../file-converter/services/file-format-converter.interface";
+import { FILE_MANAGER_SERVICE_TOKEN, IFileFormatConverter } from "../../../file-converter/services/file-format-converter.interface";
 import { VideoManagerGolangService } from "../../../file-converter/services/video-manager-golang.service";
 import { ButtonStyledComponent } from "../../../../components/button-styled/button-styled.component";
 
@@ -21,7 +21,7 @@ export class PreviewDialogComponent {
     VideoUrl: string
     isProcessing: boolean;
 
-    constructor(@Inject(FILE_MANAGER_SERVICE_TOKEN) private videoManager, @Inject(MAT_DIALOG_DATA) public data, public dialogRef: MatDialogRef<PreviewDialogComponent>) {
+    constructor(@Inject(FILE_MANAGER_SERVICE_TOKEN) private videoManager: IFileFormatConverter, @Inject(MAT_DIALOG_DATA) public data, public dialogRef: MatDialogRef<PreviewDialogComponent>) {
         this.VideoUrl = URL.createObjectURL(this.data.blobData)
         this.isProcessing = false
     }
@@ -32,7 +32,7 @@ export class PreviewDialogComponent {
 
     async downloadVideo(): Promise<void> {
         this.isProcessing = true
-        await this.videoManager.proccessVideo(this.data.blobData, this.data.format, false)
+        await this.videoManager.converteFileFormat(this.data.blobData, this.data.format)
         this.isProcessing = false
     }
 }

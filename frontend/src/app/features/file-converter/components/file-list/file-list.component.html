@@ -2,7 +2,7 @@
 	<section class="fileList">
 		<div *ngFor="let file of fileList" class="file">
 			<em>{{ file.name }}</em>
-			<button (click)="deleteFile(file)">delete</button>
+			<button (click)="deleteFileUpdateFileList(file)">delete</button>
 		</div>
 	</section>
 	<section class="configure-selector">
@@ -10,7 +10,7 @@
         <button class="menuButtonBin" (click)="emptyList()">🗑</button>
 
         <label class = "menuButton" for="files"><span style="color: green;">+</span> ADD FILES</label>
-        <input style="display: none;" id="files" type="file"  [accept]="fileType()+'/*'" (change)="onFileSelected($event)" multiple>
+        <input style="display: none;" id="files" type="file" (change)="onFileSelected($event)" multiple>
 
 
 		<button class="menuButton" (click)="convertFiles()">CONVERT</button>

@@ -1,23 +1,22 @@
-import { Component, input} from '@angular/core';
+import { Component, Inject, input} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IFileFormatConverter } from '../../services/file-format-converter.interface';
+import { FILE_MANAGER_SERVICE_TOKEN, IFileFormatConverter } from '../../services/file-format-converter.interface';
+import { VideoManagerGolangService } from '../../services/video-manager-golang.service';
 
 @Component({
     selector: 'webcap-file-list',
     templateUrl: './file-list.component.html',
     styleUrls: ['./file-list.component.css'],
-    providers: []
+    providers: [{provide: FILE_MANAGER_SERVICE_TOKEN, useClass: VideoManagerGolangService}],
 })
 
 export class FileListComponent {
     fileListLength : BehaviorSubject<number>
     protected fileList: File[]
     protected format: string
-
-    fileConverter = input<IFileFormatConverter>(undefined)
     fileType = input.required<string>()
 
-    constructor() {
+    constructor(@Inject(FILE_MANAGER_SERVICE_TOKEN) protected  fileConverter: IFileFormatConverter) {
         this.format = "mp4";
         this.fileList = [];
         this.fileListLength = new BehaviorSubject<number>(this.fileList.length); 
@@ -36,8 +35,13 @@ export class FileListComponent {
         return true
     }
 
-    protected deleteFile(file: File) {
-        this.fileList.splice(this.fileList.indexOf(file), 1);
+    protected deleteFile(fileList: File[],file: File) {
+        fileList.splice(fileList.indexOf(file), 1);
+    }
+
+    deleteFileUpdateFileList(file: File) {
+        this.deleteFile(this.fileList, file)
+
         this.fileListLength.next(this.fileList.length);
     }
 
@@ -58,7 +62,9 @@ export class FileListComponent {
     }
 
     protected convertFiles() {
-        this.fileConverter().convertFileListFormat(this.fileList, this.format, this.deleteFile)
+        this.fileConverter.convertFileListFormat(this.fileList, this.format, this.deleteFile)
+        this.fileListLength.next(this.fileList.length);
+        this.emptyList()
     }
 
 
