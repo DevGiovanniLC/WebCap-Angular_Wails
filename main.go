@@ -20,8 +20,10 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:            "ScreenCapture",
-		MinWidth:         900,
-		MinHeight:        800,
+		Width:         800,
+		Height:        600,
+		MinWidth:         800,
+		MinHeight:        650,
 		BackgroundColour: &options.RGBA{R: 213, G: 213, B: 213, A: 1},
 		AssetServer: &assetserver.Options{
             Assets: assets,
