@@ -13,7 +13,7 @@
         <input style="display: none;" id="files" type="file" (change)="onFileSelected($event)" multiple>
 
 
-		<button class="menuButton" (click)="convertFiles()">CONVERT</button>
+		<button class="menuButton" (click)="convertFiles()" [disabled]="isProcessing">{{isProcessing ? 'CONVERTING...' : 'CONVERT' }}</button>
 
 		<label>FILE FORMATS</label>
 		<select

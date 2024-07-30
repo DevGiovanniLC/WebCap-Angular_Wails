@@ -12,11 +12,13 @@ import { VideoManagerGolangService } from '../../services/video-manager-golang.s
 
 export class FileListComponent {
     fileListLength : BehaviorSubject<number>
+    protected isProcessing: boolean;
     protected fileList: File[]
     protected format: string
     fileType = input.required<string>()
 
     constructor(@Inject(FILE_MANAGER_SERVICE_TOKEN) protected  fileConverter: IFileFormatConverter) {
+        this.isProcessing = false;
         this.format = "mp4";
         this.fileList = [];
         this.fileListLength = new BehaviorSubject<number>(this.fileList.length); 
@@ -62,8 +64,10 @@ export class FileListComponent {
     }
 
     protected async convertFiles() {
+        this.isProcessing = true
         await this.fileConverter.convertFileListFormat(this.fileList, this.format, this.deleteFile)
         this.fileListLength.next(this.fileList.length);
+        this.isProcessing = false
     }
 
 
