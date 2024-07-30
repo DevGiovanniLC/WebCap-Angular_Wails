@@ -11,6 +11,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/gen2brain/beeep"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -31,12 +32,16 @@ func NewApp() *App {
 func (a *App) ConvertFileFormat(data []byte, format string) {
 
 	inputPath := CreateTemporalFile(data)
-	if (inputPath == "") {return}
+	if inputPath == "" {
+		return
+	}
 
 	defer os.RemoveAll(inputPath)
 
 	outputPath := SelectAndSaveFile(a, format)
-	if (outputPath == "") {return}
+	if outputPath == "" {
+		return
+	}
 
 	video_funcs.ConvertVideo(inputPath, outputPath)
 
@@ -52,7 +57,7 @@ func (a *App) ConvertFileBufferFormat(fileName string, data []byte, format strin
 	CreateFolder(userFolder)
 
 	outputPath := filepath.Join(userFolder, GetNameWithOutExtension(fileName)+"."+format)
-	
+
 	outputPath = GetUniqueFileName(outputPath, format, 0)
 
 	video_funcs.ConvertVideo(inputPath, outputPath)
@@ -120,7 +125,7 @@ func CheckOverWriteFile(filePath string) string {
 func GetUniqueFileName(filePath string, format string, count int) string {
 	if _, err := os.Stat(filePath); err == nil {
 		counter := fmt.Sprintf("(%d)", count+1)
-		filePath = GetNameWithOutExtension(filePath)+ counter + "." + format
+		filePath = GetNameWithOutExtension(filePath) + counter + "." + format
 		return GetUniqueFileName(filePath, format, count+1)
 	} else if os.IsNotExist(err) {
 		return filePath
@@ -150,4 +155,11 @@ func GetVideoUserPath() string {
 		return ""
 	}
 	return filepath.Join(usr.HomeDir, "Videos")
+}
+
+func (a *App) WindowsNotification(title string, message string) {
+	err := beeep.Notify(title, message, "build/appicon.png")
+	if err != nil {
+		panic(err)
+	}
 }

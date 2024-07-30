@@ -4,3 +4,5 @@
 export function ConvertFileBufferFormat(arg1:string,arg2:Array<number>,arg3:string):Promise<void>;
 
 export function ConvertFileFormat(arg1:Array<number>,arg2:string):Promise<void>;
+
+export function WindowsNotification(arg1:string,arg2:string):Promise<void>;

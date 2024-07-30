@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IFileFormatConverter } from './file-format-converter.interface';
-import { ConvertFileFormat, ConvertFileBufferFormat } from '../../../../../wailsjs/go/main/App';
+import { ConvertFileFormat, ConvertFileBufferFormat, WindowsNotification } from '../../../../../wailsjs/go/main/App';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +23,7 @@ export class VideoManagerGolangService implements IFileFormatConverter {
             let data = new Uint8Array(await file.arrayBuffer());
             await ConvertFileBufferFormat(file.name, Array.from(data), format);
             if (func) func(fileList, file);
+            WindowsNotification(file.name +' converted to '+ format, 'The video was saved successfully in the path: User/Videos/WebCapVideos')
         }
     }
 }

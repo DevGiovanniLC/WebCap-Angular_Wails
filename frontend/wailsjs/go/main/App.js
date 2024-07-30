@@ -9,3 +9,7 @@ export function ConvertFileBufferFormat(arg1, arg2, arg3) {
 export function ConvertFileFormat(arg1, arg2) {
   return window['go']['main']['App']['ConvertFileFormat'](arg1, arg2);
 }
+
+export function WindowsNotification(arg1, arg2) {
+  return window['go']['main']['App']['WindowsNotification'](arg1, arg2);
+}

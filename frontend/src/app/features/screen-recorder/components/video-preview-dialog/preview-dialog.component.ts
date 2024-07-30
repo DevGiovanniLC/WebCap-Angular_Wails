@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef } from 
 import { FILE_MANAGER_SERVICE_TOKEN, IFileFormatConverter } from "../../../file-converter/services/file-format-converter.interface";
 import { VideoManagerGolangService } from "../../../file-converter/services/video-manager-golang.service";
 import { ButtonStyledComponent } from "../../../../components/button-styled/button-styled.component";
+import { WindowsNotification } from "../../../../../../wailsjs/go/main/App";
 
 
 @Component({
@@ -34,5 +35,6 @@ export class PreviewDialogComponent {
         this.isProcessing = true
         await this.videoManager.converteFileFormat(this.data.blobData, this.data.format)
         this.isProcessing = false
+        WindowsNotification('Video saved', 'The video was saved successfully')
     }
 }
