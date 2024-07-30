@@ -19,7 +19,7 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:            "ScreenCapture",
+		Title:            "WebCap",
 		Width:         800,
 		Height:        600,
 		MinWidth:         800,

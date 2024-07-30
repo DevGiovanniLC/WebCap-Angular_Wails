@@ -1,4 +1,4 @@
-module ScreenCapture
+module WebCap
 
 go 1.21
 

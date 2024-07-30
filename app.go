@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"ScreenCapture/backend/video_funcs"
+	"WebCap/backend/video_funcs"
 	"log"
 	"os"
 
